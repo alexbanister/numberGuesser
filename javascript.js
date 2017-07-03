@@ -14,9 +14,9 @@ var lastGuessText = document.getElementById("lastGuessText");
 var lastGuess = document.getElementById("lastGuess");
 var errorBox = document.getElementById("errorBox");
 var settingsBox = document.getElementById("settingsBox");
+var settingsErrorBox = document.getElementById("settingsErrorBox");
 var lowEndInput = document.getElementById("lowEndInput");
 var highEndInput = document.getElementById("highEndInput");
-var guessesPerLevelInput = document.getElementById("guessesPerLevelInput");
 
 var highEnd=100;
 var lowEnd=1;
@@ -80,22 +80,15 @@ if (debugMode===true) {
  }
 
  function validateGuess() {
-   var regEx=new RegExp("^[0-9]+$");
-   var testRegEx = regEx.test(guessedNumberEl.value);
-   console.log(testRegEx);
    if (guessedNumberEl.value === "") {
-     guessedNumberEl.className = "guessField";
-     errorBox.style.visibility = "hidden";
+     controlGuessErrorState(false);
      guessButton.disabled = true;
      clearButton.disabled = true;
    } else {
-      var guessedNumber = parseFloat(guessedNumberEl.value);
-      if (isNaN(guessedNumber) || guessedNumber > highEnd || guessedNumber < lowEnd || testRegEx === false){
-        guessedNumberEl.className = "guessFieldInvalid";
-        errorBox.style.visibility = "visible";
-        guessButton.disabled = true;
-        clearButton.disabled = false;
-        if (isNaN(guessedNumber) || testRegEx === false) {
+      var guessedNumber = parseInt(guessedNumberEl.value);
+      if (guessedNumber > highEnd || guessedNumber < lowEnd || isWholeNumber(guessedNumberEl.value) === false){
+        controlGuessErrorState(true);
+        if (isWholeNumber(guessedNumberEl.value) === false) {
           errorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number between " + lowEnd + " and " + highEnd + ".";
         } else if (guessedNumber > highEnd) {
           errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be below " + highEnd + ".";
@@ -103,13 +96,70 @@ if (debugMode===true) {
           errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be above " + lowEnd + ".";
         }
       } else {
-        guessedNumberEl.className = "guessField";
-        errorBox.style.visibility = "hidden";
-        guessButton.disabled = false;
-        clearButton.disabled = false;
+        controlGuessErrorState(false);
       }
    }
  }
+
+function controlGuessErrorState(errorState) {
+  if (errorState) {
+    guessedNumberEl.className = "guessFieldInvalid";
+    errorBox.style.display = "block";
+    guessButton.disabled = true;
+    clearButton.disabled = false;
+  } else {
+    guessedNumberEl.className = "guessField";
+    errorBox.style.display = "none";
+    guessButton.disabled = false;
+    clearButton.disabled = false;
+  }
+}
+
+function validateMinMax() {
+  var rangeSize = Math.abs(highEndInput.value - lowEndInput.value);
+  if (rangeSize < 10) {
+    var invalidRange = true;
+  }
+  if (!isWholeNumber(lowEndInput.value) || !isWholeNumber(highEndInput.value) || invalidRange) {
+    settingsErrorBox.style.display = "block";
+    saveButton.disabled = true;
+    if (invalidRange) {
+      settingsErrorBox.innerHTML = "<strong>Not a valid range</strong><br />Range must be at least 10.";
+      console.log("I'm here");
+      highEndInput.className = "guessFieldInvalid";
+      lowEndInput.className = "guessFieldInvalid";
+    } else {
+      highEndInput.className = "guessField";
+      lowEndInput.className = "guessField";
+    }
+    if (!isWholeNumber(lowEndInput.value)) {
+      settingsErrorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number";
+      lowEndInput.className = "guessFieldInvalid";
+    } else {
+      if (!invalidRange) {
+          lowEndInput.className = "guessField";
+      }
+    }
+    if (!isWholeNumber(highEndInput.value)) {
+      settingsErrorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number";
+      highEndInput.className = "guessFieldInvalid";
+    } else {
+      if (!invalidRange) {
+        highEndInput.className = "guessField";
+      }
+    }
+  } else {
+    settingsErrorBox.style.display = "none";
+    saveButton.disabled = false;
+    highEndInput.className = "guessField";
+    lowEndInput.className = "guessField";
+  }
+}
+
+function isWholeNumber(num) {
+  var regEx=new RegExp("^[+,-]?[0-9]+$");
+  return testRegEx = regEx.test(num);
+}
 
 function restartGame() {
     guessedNumberEl.value = null;
@@ -124,6 +174,7 @@ function restartGame() {
     resetButton.disabled = true;
     lastGuess.innerHTML = "?";
     mainContent.style.backgroundColor = null;
+    settingsButton.style.display = "none";
 
     if (debugMode===true) {
       console.log("-------------------------------");
@@ -142,6 +193,7 @@ function levelUp() {
   numOfGuesses=0;
   currentLevelText.innerHTML = "Level " + currentLevel;
   currentRangeText.innerHTML = "Guess the number between <strong>" + lowEnd + "</strong> and <strong>" + highEnd + "</strong>";
+  settingsButton.style.display = "block";
 }
 
 guessButton.addEventListener("click", function(e){
@@ -166,6 +218,14 @@ guessedNumberEl.addEventListener("input", function(){
   validateGuess();
 });
 
+lowEndInput.addEventListener("input", function(){
+  validateMinMax();
+});
+
+highEndInput.addEventListener("input", function(){
+  validateMinMax();
+});
+
 settingsButton.addEventListener("click", function(e){
   e.preventDefault();
   if (settingsBoxOpen === false) {
@@ -181,9 +241,13 @@ settingsButton.addEventListener("click", function(e){
 
 saveButton.addEventListener("click", function(e) {
   e.preventDefault();
-  lowEnd = parseInt(lowEndInput.value);
-  highEnd = parseInt(highEndInput.value);
-  guessesPerLevel = parseInt(guessesPerLevelInput.value);
+  if (parseInt(lowEndInput.value) > parseInt(highEndInput.value)) {
+    highEnd = parseInt(lowEndInput.value);
+    lowEnd = parseInt(highEndInput.value);
+  } else {
+    lowEnd = parseInt(lowEndInput.value);
+    highEnd = parseInt(highEndInput.value);
+  }
   settingsBoxOpen = false;
   settingsBox.style.visibility = "hidden";
   settingsButton.style.backgroundColor = "#929497";

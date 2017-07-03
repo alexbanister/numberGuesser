@@ -73,17 +73,23 @@ h3 {
 
 .guessFieldValid {
   background-color: #ffffff;
-  border: 1px solid ##AEB6BF;
+  border: 1px solid #AEB6BF;
 }
 
-#errorBox {
+#errorBox, #settingsErrorBox {
   position: absolute;
   top: 50px;
   left: 0px;
   right: 0px;
   background-color: #FADBD8;
   border: 1px solid #922B21;
-  visibility: hidden;
+  display: none;
+  border-radius: 25px;
+}
+
+#settingsErrorBox {
+  top: -10px;
+
 }
 
 button {
@@ -95,7 +101,7 @@ button {
   border: 0px;
   font-size: 25px;
   font-weight: 300;
-  margin: 0px 8px;
+  margin: 25px 8px;
 }
 
 button:disabled {
@@ -122,10 +128,15 @@ button:not([disabled]):hover {
 
 .wideButton {
   width: 450px;
+  height: 40px;
   margin-bottom: 25px;
 }
 
 /*Settings Styles*/
+#settingsButton {
+    display: none;
+}
+
 #settingsBox {
   width: 500px;
   visibility: hidden;
@@ -134,26 +145,5 @@ button:not([disabled]):hover {
 h4 {
   font-size: 15px;
   padding: 0px;
-  margin: 0px;
-  margin-top: 10px;
-}
-
-.playerIcons {
-  width: 50px;
   margin: 10px;
-  padding: 10px;
-  border-radius: 20%;
-}
-
-.playerIcons:hover {
-  background-color: #eb008b;
-}
-
-.playerIconsActive {
-  background-color: #929497;
-  border: 1px solid #d0d2d3;
-  width: 50px;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 20%;
 }
