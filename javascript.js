@@ -5,8 +5,12 @@ var settingsButton = document.getElementById("settingsButton");
 var saveButton = document.getElementById("saveButton");
 var cancelButton = document.getElementById("cancelButton");
 
+var mainContent = document.getElementById("mainContent");
+var currentLevelText = document.getElementById("currentLevelText");
+var currentRangeText = document.getElementById("currentRangeText");
 var guessedNumberEl = document.getElementById("guessField");
 var resultsText = document.getElementById("resultsText");
+var lastGuessText = document.getElementById("lastGuessText");
 var lastGuess = document.getElementById("lastGuess");
 var errorBox = document.getElementById("errorBox");
 var settingsBox = document.getElementById("settingsBox");
@@ -16,45 +20,67 @@ var guessesPerLevelInput = document.getElementById("guessesPerLevelInput");
 var onePlayerIcon = document.getElementById("onePlayerIcon");
 var twoPlayerIcon = document.getElementById("twoPlayerIcon");
 
-var hightEnd=100;
-var lowEnd=10;
-var secretNum=Math.floor(Math.random() * (hightEnd - lowEnd +1)) + lowEnd;
+var highEnd=100;
+var lowEnd=1;
+var secretNum=Math.floor(Math.random() * (highEnd - lowEnd +1)) + lowEnd;
 var numOfGuesses=0;
 var currentLevel=1;
-var guessesPerLevel=10;
+var guessesPerLevel=5;
+var levelRangeIncrease=10;
 var numOfPlayers = 1;
 var numOfPlayersTemp = 1;
 var settingsBoxOpen = false;
 
-console.log("-------------------------------");
-console.log("Secret Number: " + secretNum);
-console.log("High End: " + hightEnd);
-console.log("low End: " + lowEnd);
-console.log("Players: " + numOfPlayers);
-console.log("Guesses Per Level: " + guessesPerLevel);
+// TURN DEBUGGING ON TO SEE VALUES IN CONSOLE
+var debugMode = true;
+
+if (debugMode===true) {
+  console.log("-------------------------------");
+  console.log("Secret Number: " + secretNum);
+  console.log("High End: " + highEnd);
+  console.log("low End: " + lowEnd);
+  console.log("Players: " + numOfPlayers);
+  console.log("Guesses Per Level: " + guessesPerLevel);
+}
 
   function checkGuess() {
     var guessedNumber = parseInt(guessedNumberEl.value);
     numOfGuesses++;
 
-    document.getElementById("lastGuessText").style.visibility = "visible";
-    document.getElementById("resultsText").style.visibility = "visible";
-    document.getElementById("resetButton").disabled = false;
+    lastGuessText.style.visibility = "visible";
+    resultsText.style.visibility = "visible";
+    resetButton.disabled = false;
 
-    console.log("---------------------");
-    console.log("Number of Guesses: " + numOfGuesses);
-    console.log("---------------------");
+    if (debugMode===true) {
+      console.log("---------------------");
+      console.log("Number of Guesses: " + numOfGuesses);
+      console.log("Secret Number: " + secretNum);
+      console.log("---------------------");
+    }
 
     if (guessedNumber===secretNum) {
-      lastGuess.innerHTML = guessedNumber;
-      resultsText.innerHTML = "Boom!";
+      lastGuess.innerHTML = "<h3>" + guessedNumber + "</h3>";
+      resultsText.innerHTML = "<h2 id=\"lastGuess\">Boom!</h2>";
+      mainContent.style.backgroundColor = "#ABEBC6";
+      levelUp();
     } else if (guessedNumber<secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too Low!";
+      mainContent.style.backgroundColor = null;
 
     } else if (guessedNumber>secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too High!";
+      mainContent.style.backgroundColor = null;
+    }
+    if (numOfGuesses===guessesPerLevel) {
+      guessButton.disabled = true;
+      clearButton.disabled = true;
+      guessField.disabled = true;
+      mainContent.style.backgroundColor = "#F1948A";
+      lastGuessText.innerHTML = "You lost! The correct number was";
+      lastGuess.innerHTML = secretNum;
+      resultsText.innerHTML = "Play Again?";
     }
  }
 
@@ -62,46 +88,61 @@ console.log("Guesses Per Level: " + guessesPerLevel);
    if (guessedNumberEl.value === "") {
      guessedNumberEl.className = "guessField";
      errorBox.style.visibility = "hidden";
-     document.getElementById("guessButton").disabled = true;
-     document.getElementById("clearButton").disabled = true;
+     guessButton.disabled = true;
+     clearButton.disabled = true;
    } else {
       var guessedNumber = parseInt(guessedNumberEl.value);
-      if (isNaN(guessedNumber) || guessedNumber > hightEnd || guessedNumber < lowEnd){
+      if (isNaN(guessedNumber) || guessedNumber > highEnd || guessedNumber < lowEnd){
         guessedNumberEl.className = "guessFieldInvalid";
         errorBox.style.visibility = "visible";
-        document.getElementById("guessButton").disabled = true;
-        document.getElementById("clearButton").disabled = false;
+        guessButton.disabled = true;
+        clearButton.disabled = false;
         if (isNaN(guessedNumber)) {
-          document.getElementById("errorBox").innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number between " + lowEnd + " and " + hightEnd + ".";
-        } else if (guessedNumber > hightEnd) {
-          document.getElementById("errorBox").innerHTML = "<strong>Guess outside range</strong><br />Number must be below " + hightEnd + ".";
+          errorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number between " + lowEnd + " and " + highEnd + ".";
+        } else if (guessedNumber > highEnd) {
+          errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be below " + highEnd + ".";
         } else if (guessedNumber < lowEnd) {
-          document.getElementById("errorBox").innerHTML = "<strong>Guess outside range</strong><br />Number must be above " + lowEnd + ".";
+          errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be above " + lowEnd + ".";
         }
       } else {
         guessedNumberEl.className = "guessField";
         errorBox.style.visibility = "hidden";
-        document.getElementById("guessButton").disabled = false;
-        document.getElementById("clearButton").disabled = false;
+        guessButton.disabled = false;
+        clearButton.disabled = false;
       }
    }
  }
 
 function restartGame() {
     guessedNumberEl.value = null;
-    secretNum=Math.floor(Math.random() * (hightEnd - lowEnd +1)) + lowEnd;
+    secretNum=Math.floor(Math.random() * (highEnd - lowEnd +1)) + lowEnd;
     numOfGuesses=0;
     currentLevel=1;
-    document.getElementById("lastGuessText").style.visibility = "hidden";
-    document.getElementById("resultsText").style.visibility = "hidden";
-    document.getElementById("resetButton").disabled = true;
+    guessField.disabled = false;
+    lastGuessText.style.visibility = "hidden";
+    resultsText.style.visibility = "hidden";
+    resetButton.disabled = true;
     lastGuess.innerHTML = "?";
-    console.log("-------------------------------");
-    console.log("Secret Number: " + secretNum);
-    console.log("High End: " + hightEnd);
-    console.log("low End: " + lowEnd);
-    console.log("Players: " + numOfPlayers);
-    console.log("Guesses Per Level: " + guessesPerLevel);
+    mainContent.style.backgroundColor = null;
+
+    if (debugMode===true) {
+      console.log("-------------------------------");
+      console.log("Secret Number: " + secretNum);
+      console.log("High End: " + highEnd);
+      console.log("low End: " + lowEnd);
+      console.log("Players: " + numOfPlayers);
+      console.log("Guesses Per Level: " + guessesPerLevel);
+    }
+}
+
+function levelUp() {
+  currentLevel++;
+  highEnd += levelRangeIncrease;
+  lowEnd -= levelRangeIncrease;
+  secretNum=Math.floor(Math.random() * (highEnd - lowEnd +1)) + lowEnd;
+  numOfGuesses=0;
+  currentLevelText.innerHTML = "Level " + currentLevel;
+  currentRangeText.innerHTML = "Guess the number between <strong>" + lowEnd + "</strong> and <strong>" + highEnd + "</strong>";
 }
 
 guessButton.addEventListener("click", function(e){
@@ -131,9 +172,11 @@ settingsButton.addEventListener("click", function(e){
   if (settingsBoxOpen === false) {
     settingsBoxOpen = true;
     settingsBox.style.visibility = "visible";
+    settingsButton.style.backgroundColor = "#eb008b";
   } else {
     settingsBoxOpen = false;
     settingsBox.style.visibility = "hidden";
+    settingsButton.style.backgroundColor = "#929497";
   }
 });
 
@@ -151,19 +194,20 @@ twoPlayerIcon.addEventListener("click", function(){
 
 saveButton.addEventListener("click", function(e) {
   e.preventDefault();
-  lowEnd = lowEndInput.value;
-  hightEnd = highEndInput.value;
-  guessesPerLevel = guessesPerLevelInput.value;
+  lowEnd = parseInt(lowEndInput.value);
+  highEnd = parseInt(highEndInput.value);
+  guessesPerLevel = parseInt(guessesPerLevelInput.value);
   numOfPlayers = numOfPlayersTemp;
   settingsBoxOpen = false;
   settingsBox.style.visibility = "hidden";
+  settingsButton.style.backgroundColor = "#929497";
   restartGame();
 })
 
 cancelButton.addEventListener("click", function(e) {
   e.preventDefault();
   lowEndInput.value = lowEnd;
-  highEndInput.value = hightEnd;
+  highEndInput.value = highEnd;
   guessesPerLevelInput.value = guessesPerLevel;
   numOfPlayersTemp = numOfPlayers;
   if(numOfPlayers === 1){
@@ -175,4 +219,5 @@ cancelButton.addEventListener("click", function(e) {
   }
   settingsBoxOpen = false;
   settingsBox.style.visibility = "hidden";
+  settingsButton.style.backgroundColor = "#929497";
 })
