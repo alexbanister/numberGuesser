@@ -20,6 +20,8 @@ var guessesPerLevelInput = document.getElementById("guessesPerLevelInput");
 var onePlayerIcon = document.getElementById("onePlayerIcon");
 var twoPlayerIcon = document.getElementById("twoPlayerIcon");
 
+var historicGuessesBox = document.getElementById("historicGuessesBox");
+
 var highEnd=100;
 var lowEnd=1;
 var secretNum=Math.floor(Math.random() * (highEnd - lowEnd +1)) + lowEnd;
@@ -44,12 +46,18 @@ if (debugMode===true) {
 }
 
   function checkGuess() {
-    var guessedNumber = parseInt(guessedNumberEl.value);
-    numOfGuesses++;
-
     lastGuessText.style.visibility = "visible";
     resultsText.style.visibility = "visible";
     resetButton.disabled = false;
+    var historicGuess = document.createElement('div');
+        historicGuess.className = "historicGuess";
+
+    if (numOfGuesses===0) {
+      historicGuessesBox.innerHTML = "";
+    }
+
+    var guessedNumber = parseInt(guessedNumberEl.value);
+    numOfGuesses++;
 
     if (debugMode===true) {
       console.log("---------------------");
@@ -62,16 +70,20 @@ if (debugMode===true) {
       lastGuess.innerHTML = "<h3>" + guessedNumber + "</h3>";
       resultsText.innerHTML = "<h2 id=\"lastGuess\">Boom!</h2>";
       mainContent.style.backgroundColor = "#ABEBC6";
+      historicGuess.innerHTML = "<strong>" + guessedNumber + "</strong><br />BOOM!";
+      historicGuess.className = "historicGuessCorrect";
       levelUp();
     } else if (guessedNumber<secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too Low!";
+      historicGuess.innerHTML = "<strong>" + guessedNumber + "</strong><br />Low";
       mainContent.style.backgroundColor = null;
 
     } else if (guessedNumber>secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too High!";
       mainContent.style.backgroundColor = null;
+      historicGuess.innerHTML = "<strong>" + guessedNumber + "</strong><br />High";
     }
     if (numOfGuesses===guessesPerLevel) {
       guessButton.disabled = true;
@@ -82,6 +94,7 @@ if (debugMode===true) {
       lastGuess.innerHTML = secretNum;
       resultsText.innerHTML = "Play Again?";
     }
+    historicGuessesBox.insertAdjacentHTML("afterbegin", historicGuess.outerHTML);
  }
 
  function validateGuess() {
@@ -119,6 +132,8 @@ function restartGame() {
     numOfGuesses=0;
     currentLevel=1;
     guessField.disabled = false;
+    currentLevelText.innerHTML = "Level " + currentLevel;
+    currentRangeText.innerHTML = "Guess the number between <strong>" + lowEnd + "</strong> and <strong>" + highEnd + "</strong>";
     lastGuessText.style.visibility = "hidden";
     resultsText.style.visibility = "hidden";
     resetButton.disabled = true;

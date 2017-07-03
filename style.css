@@ -207,7 +207,7 @@ h4 {
   background-color: #404041;
 }
 
-.historicGuess {
+.historicGuess, .historicGuessCorrect {
   color: #ffffff;
   font-size: 12px;
   margin: auto;
@@ -219,6 +219,11 @@ h4 {
   background-color: #eb008b;
 }
 
-.historicGuess>strong {
+.historicGuess>strong, .historicGuessCorrect>strong {
   font-size: 20px;
+}
+
+.historicGuessCorrect {
+  color: #404041;
+  background-color: #ABEBC6;
 }
