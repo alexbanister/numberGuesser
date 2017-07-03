@@ -188,8 +188,14 @@ h4 {
   width: 55px;
   padding: 10px;
   margin-top: 15px;
-  border-top-right-radius: 25%;
-  border-bottom-right-radius: 25%;
+  border-radius: 25%;
+  border: 1px solid #929497;
+}
+
+.settingsIcon:hover {
+  border-radius: 25%;
+  background-color: #eb008b;
+  border: 1px solid #404041;
 }
 
 .settingsIconActive {
@@ -201,7 +207,7 @@ h4 {
   background-color: #404041;
 }
 
-.historicGuesses {
+.historicGuess {
   color: #ffffff;
   font-size: 12px;
   margin: auto;
@@ -213,6 +219,6 @@ h4 {
   background-color: #eb008b;
 }
 
-.historicGuesses>strong {
+.historicGuess>strong {
   font-size: 20px;
 }
