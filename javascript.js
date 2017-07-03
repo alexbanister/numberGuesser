@@ -114,6 +114,8 @@ function restartGame() {
     numOfGuesses=0;
     currentLevel=1;
     guessField.disabled = false;
+    currentLevelText.innerHTML = "Level " + currentLevel;
+    currentRangeText.innerHTML = "Guess the number between <strong>" + lowEnd + "</strong> and <strong>" + highEnd + "</strong>";
     lastGuessText.style.visibility = "hidden";
     resultsText.style.visibility = "hidden";
     resetButton.disabled = true;
