@@ -99,23 +99,21 @@ if (debugMode===true) {
  }
 
  function validateGuess() {
+   var regEx=new RegExp("^[0-9]+$");
+   var testRegEx = regEx.test(guessedNumberEl.value);
    if (guessedNumberEl.value === "") {
      guessedNumberEl.className = "guessField";
      errorBox.style.visibility = "hidden";
      guessButton.disabled = true;
      clearButton.disabled = true;
    } else {
-     console.log("---------------------");
-     console.log(guessedNumber % 1);
-     console.log("---------------------");
-      var guessedNumber = parseInt(guessedNumberEl.value, 10);
-      console.log(guessedNumber);
-      if (isNaN(guessedNumber) || guessedNumber > highEnd || guessedNumber < lowEnd){
+      var guessedNumber = parseInt(guessedNumberEl.value);
+      if (isNaN(guessedNumber) || guessedNumber > highEnd || guessedNumber < lowEnd || testRegEx === false){
         guessedNumberEl.className = "guessFieldInvalid";
         errorBox.style.visibility = "visible";
         guessButton.disabled = true;
         clearButton.disabled = false;
-        if (isNaN(guessedNumber)) {
+        if (isNaN(guessedNumber) || testRegEx === false) {
           errorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number between " + lowEnd + " and " + highEnd + ".";
         } else if (guessedNumber > highEnd) {
           errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be below " + highEnd + ".";
