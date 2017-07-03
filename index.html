@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Number Guesser</title>
+  </head>
+  <body>
+    <header>
+      <h1><span class="logoTextBold">Number</span> Guesser</h1>
+    </header>
+    <main>
+      <fieldset>
+        <legend>Guess a Number</legend>
+        <form class="" action="" method="post">
+          <input type="number" id="guessField" class="guessFieldValid" placeholder="Enter your guess">
+          <button type="submit" id="guessButton" disabled>Guess</button>
+          <button type="button" id="clearButton" disabled>Clear</button>
+          <div id="errorBox">
+            Not a valid number
+          </div>
+        </form>
+      </fieldset>
+      <article class="resultsArea">
+        <p id="lastGuessText">Your last guess was</p>
+        <h2 id="lastGuess">?</h2>
+        <p id="resultsText">Placeholder</p>
+      </article>
+      <fieldset>
+        <legend>Reset Game</legend>
+        <form class="" action="" method="post">
+          <button type="reset" id="resetButton" class="resetButton" disabled>Reset</button>
+          <button type="button" id="settingsButton" class="resetButton">Settings</button>
+        </form>
+      </fieldset>
+      <section id="settingsBox">
+        <fieldset>
+          <legend>Game Settings</legend>
+          <form class="" action="" method="post">
+            <h3>Number Range</h3>
+            <label>Minimim: <input type="number" id="lowEndInput" value="1"></label>
+            <label>Maxium: <input type="number" id="highEndInput" value="100"></label>
+            <h3>Guesses per level</h3>
+            <input type="number" id="guessesPerLevelInput" value="10">
+            <h3>Number of Players</h3>
+            <img src="images/1player.png" alt="One Player" title="One Player" id="onePlayerIcon" class="playerIconsActive" />
+            <img src="images/2player.png" alt="Two Player" title="Two Player" id="twoPlayerIcon" class="playerIcons" />
+            <br />
+            <button type="submit" id="saveButton">Save</button>
+            <button type="button" id="cancelButton">Cancel</button>
+          </form>
+      </section>
+    </main>
+  </body>
+  <script type="text/javascript" src="javascript.js"></script>
+</html>

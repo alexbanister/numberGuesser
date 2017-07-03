@@ -1,0 +1,150 @@
+body {
+  font-family: Open Sans;
+  font-weight: 300;
+  font-size: 20px;
+  margin: 0px;
+  background-color: #eeeeee;
+  color: #404041;
+}
+
+/*Header Styles*/
+header {
+  background-color: #404041;
+  text-align: center;
+  padding: 15px;
+
+}
+
+h1 {
+  font-size: 50px;
+  margin: auto;
+  padding: 0px;
+  width: 500px;
+  font-weight: 300;
+  color: #e6e7e8;
+}
+
+h1 span {
+  color: #ed458b;
+  font-weight: 700;
+}
+
+/*Main Styles*/
+main {
+  margin: auto;
+  width: 475px;
+  text-align: center;
+}
+
+fieldset {
+  border: 0px;
+  position: relative;
+}
+
+legend {
+  display: none;
+}
+input {
+  width: 100px;
+  height: 45px;
+  padding: 4px;
+  font-size: 25px;
+  font-weight: 300;
+  margin: 10px;
+}
+
+#guessField {
+  width: 450px;
+}
+
+.guessFieldInvalid {
+  background-color: #FADBD8;
+  border: 1px solid #922B21;
+}
+
+.guessFieldValid {
+  background-color: #ffffff;
+  border: 1px solid ##AEB6BF;
+}
+
+#errorBox {
+  position: absolute;
+  top: 90px;
+  left: 15px;
+  right: 15px;
+  background-color: #FADBD8;
+  border: 1px solid #922B21;
+  visibility: hidden;
+}
+
+button {
+  height: 50px;
+  width: 210px;
+  border-radius: 25px;
+  background-color: #929497;
+  color: #ffffff;
+  border: 0px;
+  font-size: 25px;
+  font-weight: 300;
+  margin: 0px 8px;
+}
+
+button:disabled {
+  background-color: #D0D2D3;
+  color: #ffffff;
+}
+
+button:not([disabled]):hover {
+  background-color: #eb008b;
+}
+
+/*Results Styles*/
+#lastGuessText, #resultsText {
+  visibility: hidden;
+}
+
+#lastGuess {
+  font-size: 125px;
+  margin: 0px;
+  padding: 0px;
+  color: #ed458b;
+  font-weight: 300;
+}
+
+.resetButton {
+  width: 450px;
+  margin-bottom: 25px;
+}
+
+/*Settings Styles*/
+#settingsBox {
+  width: 500px;
+  visibility: hidden;
+}
+
+h3 {
+  font-size: 15px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 10px;
+}
+
+.playerIcons {
+  width: 50px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20%;
+}
+
+.playerIcons:hover {
+  background-color: #eb008b;
+}
+
+.playerIconsActive {
+  background-color: #929497;
+  border: 1px solid #d0d2d3;
+  width: 50px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20%;
+}
