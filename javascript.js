@@ -17,8 +17,6 @@ var settingsBox = document.getElementById("settingsBox");
 var lowEndInput = document.getElementById("lowEndInput");
 var highEndInput = document.getElementById("highEndInput");
 var guessesPerLevelInput = document.getElementById("guessesPerLevelInput");
-var onePlayerIcon = document.getElementById("onePlayerIcon");
-var twoPlayerIcon = document.getElementById("twoPlayerIcon");
 
 var highEnd=100;
 var lowEnd=1;
@@ -27,8 +25,6 @@ var numOfGuesses=0;
 var currentLevel=1;
 var guessesPerLevel=5;
 var levelRangeIncrease=10;
-var numOfPlayers = 1;
-var numOfPlayersTemp = 1;
 var settingsBoxOpen = false;
 
 // TURN DEBUGGING ON TO SEE VALUES IN CONSOLE
@@ -39,7 +35,6 @@ if (debugMode===true) {
   console.log("Secret Number: " + secretNum);
   console.log("High End: " + highEnd);
   console.log("low End: " + lowEnd);
-  console.log("Players: " + numOfPlayers);
   console.log("Guesses Per Level: " + guessesPerLevel);
 }
 
@@ -130,7 +125,6 @@ function restartGame() {
       console.log("Secret Number: " + secretNum);
       console.log("High End: " + highEnd);
       console.log("low End: " + lowEnd);
-      console.log("Players: " + numOfPlayers);
       console.log("Guesses Per Level: " + guessesPerLevel);
     }
 }
@@ -180,24 +174,11 @@ settingsButton.addEventListener("click", function(e){
   }
 });
 
-onePlayerIcon.addEventListener("click", function(){
-  numOfPlayersTemp = 1;
-  onePlayerIcon.className = "playerIconsActive";
-  twoPlayerIcon.className = "playerIcons";
-});
-
-twoPlayerIcon.addEventListener("click", function(){
-  numOfPlayersTemp = 2;
-  onePlayerIcon.className = "playerIcons";
-  twoPlayerIcon.className = "playerIconsActive";
-});
-
 saveButton.addEventListener("click", function(e) {
   e.preventDefault();
   lowEnd = parseInt(lowEndInput.value);
   highEnd = parseInt(highEndInput.value);
   guessesPerLevel = parseInt(guessesPerLevelInput.value);
-  numOfPlayers = numOfPlayersTemp;
   settingsBoxOpen = false;
   settingsBox.style.visibility = "hidden";
   settingsButton.style.backgroundColor = "#929497";
@@ -209,14 +190,6 @@ cancelButton.addEventListener("click", function(e) {
   lowEndInput.value = lowEnd;
   highEndInput.value = highEnd;
   guessesPerLevelInput.value = guessesPerLevel;
-  numOfPlayersTemp = numOfPlayers;
-  if(numOfPlayers === 1){
-    onePlayerIcon.className = "playerIconsActive";
-    twoPlayerIcon.className = "playerIcons";
-  } else {
-    onePlayerIcon.className = "playerIcons";
-    twoPlayerIcon.className = "playerIconsActive";
-  }
   settingsBoxOpen = false;
   settingsBox.style.visibility = "hidden";
   settingsButton.style.backgroundColor = "#929497";
