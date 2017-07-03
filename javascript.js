@@ -171,12 +171,12 @@ settingsButton.addEventListener("click", function(e){
   e.preventDefault();
   if (settingsBoxOpen === false) {
     settingsBoxOpen = true;
-    settingsBox.style.visibility = "visible";
-    settingsButton.style.backgroundColor = "#eb008b";
+    settingsBox.style.display = "block";
+    settingsButton.className = "settingsIconActive";
   } else {
     settingsBoxOpen = false;
-    settingsBox.style.visibility = "hidden";
-    settingsButton.style.backgroundColor = "#929497";
+    settingsBox.style.display = "none";
+    settingsButton.className = "settingsIcon";
   }
 });
 
@@ -199,8 +199,8 @@ saveButton.addEventListener("click", function(e) {
   guessesPerLevel = parseInt(guessesPerLevelInput.value);
   numOfPlayers = numOfPlayersTemp;
   settingsBoxOpen = false;
-  settingsBox.style.visibility = "hidden";
-  settingsButton.style.backgroundColor = "#929497";
+  settingsBox.style.display = "none";
+  settingsButton.className = "settingsIcon";
   restartGame();
 })
 
@@ -218,6 +218,6 @@ cancelButton.addEventListener("click", function(e) {
     twoPlayerIcon.className = "playerIconsActive";
   }
   settingsBoxOpen = false;
-  settingsBox.style.visibility = "hidden";
-  settingsButton.style.backgroundColor = "#929497";
+  settingsBox.style.display = "none";
+  settingsButton.className = "settingsIcon";
 })

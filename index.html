@@ -10,48 +10,79 @@
       <h1><span class="logoTextBold">Number</span> Guesser</h1>
     </header>
     <main id="mainContent">
-      <fieldset>
-        <legend>Guess a Number</legend>
-        <h3 id="currentLevelText">Level 1</h3>
-        <p id="currentRangeText">Guess the number between <strong>1</strong> and <strong>100</strong></p>
-        <form class="" action="" method="post">
-          <input type="number" id="guessField" class="guessFieldValid" placeholder="Enter your guess">
-          <button type="submit" id="guessButton" disabled>Guess</button>
-          <button type="button" id="clearButton" disabled>Clear</button>
-          <div id="errorBox">
-            Not a valid number
-          </div>
-        </form>
-      </fieldset>
-      <article class="resultsArea">
-        <p id="lastGuessText">Your last guess was</p>
-        <h2 id="lastGuess">?</h2>
-        <p id="resultsText">Placeholder</p>
-      </article>
-      <fieldset>
-        <legend>Reset Game</legend>
-        <form class="" action="" method="post">
-          <button type="reset" id="resetButton" class="wideButton" title="This will reset the current game" disabled>Reset</button>
-          <button type="button" id="settingsButton" class="wideButton">Settings</button>
-        </form>
-      </fieldset>
-      <section id="settingsBox">
-        <fieldset>
-          <legend>Game Settings</legend>
-          <form class="" action="" method="post">
-            <h4>Number Range</h4>
-            <label>Minimim: <input type="number" id="lowEndInput" value="1"></label>
-            <label>Maxium: <input type="number" id="highEndInput" value="100"></label>
-            <h4>Guesses per level</h4>
-            <input type="number" id="guessesPerLevelInput" value="5">
-            <h4>Number of Players</h4>
-            <img src="images/1player.png" alt="One Player" title="One Player" id="onePlayerIcon" class="playerIconsActive" />
-            <img src="images/2player.png" alt="Two Player" title="Two Player" id="twoPlayerIcon" class="playerIcons" />
-            <br />
-            <button type="submit" id="saveButton" title="This will reset the current game">Save</button>
-            <button type="button" id="cancelButton">Cancel</button>
-          </form>
+      <section id="rightBar">
+        <section id="settingsBox">
+          <fieldset>
+            <legend>Game Settings</legend>
+            <form class="" action="" method="post">
+              <h4>Number Range</h4>
+              <label>Minimim: <input type="number" id="lowEndInput" value="1"></label>
+              <label>Maxium: <input type="number" id="highEndInput" value="100"></label>
+              <h4>Guesses per level</h4>
+              <input type="number" id="guessesPerLevelInput" value="5">
+              <h4>Number of Players</h4>
+              <img src="images/1player.png" alt="One Player" title="One Player" id="onePlayerIcon" class="playerIconsActive" />
+              <img src="images/2player.png" alt="Two Player" title="Two Player" id="twoPlayerIcon" class="playerIcons" />
+              <br />
+              <button type="submit" id="saveButton" title="This will reset the current game">Save</button>
+              <button type="button" id="cancelButton">Cancel</button>
+            </form>
+        </section>
+        <img src="images/settingsIcon.svg" alt="Settings icon" id="settingsButton" class="settingsIcon" title="Settings" />
+        <h4>Past Guesses:</h4>
+        <div class="historicGuesses">
+          <strong>76</strong>
+          <br />
+          Low
+        </div>
+        <div class="historicGuesses">
+          <strong>180</strong>
+          <br />
+          high
+        </div>
+        <div class="historicGuesses">
+          <strong>87</strong>
+          <br />
+          High
+        </div>
+        <div class="historicGuesses">
+          <strong>75</strong>
+          <br />
+          Low
+        </div>
+        <div class="historicGuesses">
+          <strong>50</strong>
+          <br />
+          Low
+        </div>
       </section>
+      <article id="centerCol">
+        <fieldset>
+          <legend>Guess a Number</legend>
+          <h3 id="currentLevelText">Level 1</h3>
+          <p id="currentRangeText">Guess the number between <strong>1</strong> and <strong>100</strong></p>
+          <form class="" action="" method="post">
+            <input type="number" id="guessField" class="guessFieldValid" placeholder="Enter your guess">
+            <br />
+            <button type="submit" id="guessButton" disabled>Guess</button>
+            <button type="button" id="clearButton" disabled>Clear</button>
+            <div id="errorBox">
+              Not a valid number
+            </div>
+          </form>
+        </fieldset>
+        <article class="resultsArea">
+          <p id="lastGuessText">Your last guess was</p>
+          <h2 id="lastGuess">?</h2>
+          <p id="resultsText">Placeholder</p>
+        </article>
+        <fieldset>
+          <legend>Reset Game</legend>
+          <form class="" action="" method="post">
+            <button type="reset" id="resetButton" class="wideButton" title="This will reset the current game" disabled>Reset</button>
+          </form>
+        </fieldset>
+      </article>
     </main>
   </body>
   <script type="text/javascript" src="javascript.js"></script>

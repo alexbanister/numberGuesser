@@ -31,8 +31,17 @@ h1 span {
 /*Main Styles*/
 main {
   margin: auto;
-  width: 500px;
   text-align: center;
+}
+
+#mainContent {
+  position: relative;
+  width: 500px;
+}
+
+#centerCol {
+  margin: auto;
+  display: block;
 }
 
 fieldset {
@@ -128,7 +137,15 @@ button:not([disabled]):hover {
 /*Settings Styles*/
 #settingsBox {
   width: 500px;
-  visibility: hidden;
+  display: none;
+  color: #ffffff;
+  border-radius: 2%;
+  background-color: #404041;
+  border: 1px solid 666666;
+  position: absolute;
+  left: -500px;
+  top: 5px;
+  z-index: 10;
 }
 
 h4 {
@@ -156,4 +173,46 @@ h4 {
   margin: 10px;
   padding: 10px;
   border-radius: 20%;
+}
+
+/*Aside Styles*/
+#rightBar {
+  position: absolute;
+  right: -75px;
+  display: inline-block;
+  width: 75px;
+  overflow: visible;
+}
+
+.settingsIcon {
+  width: 55px;
+  padding: 10px;
+  margin-top: 15px;
+  border-top-right-radius: 25%;
+  border-bottom-right-radius: 25%;
+}
+
+.settingsIconActive {
+  width: 55px;
+  padding: 10px;
+  margin-top: 15px;
+  border-top-right-radius: 25%;
+  border-bottom-right-radius: 25%;
+  background-color: #404041;
+}
+
+.historicGuesses {
+  color: #ffffff;
+  font-size: 12px;
+  margin: auto;
+  margin-top: 10px;
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #eb008b;
+}
+
+.historicGuesses>strong {
+  font-size: 20px;
 }
