@@ -63,6 +63,7 @@ if (debugMode===true) {
       console.log("---------------------");
       console.log("Number of Guesses: " + numOfGuesses);
       console.log("Secret Number: " + secretNum);
+      console.log("Guessed Number: " + guessedNumber);
       console.log("---------------------");
     }
 
@@ -104,7 +105,11 @@ if (debugMode===true) {
      guessButton.disabled = true;
      clearButton.disabled = true;
    } else {
-      var guessedNumber = parseInt(guessedNumberEl.value);
+     console.log("---------------------");
+     console.log(guessedNumber % 1);
+     console.log("---------------------");
+      var guessedNumber = parseInt(guessedNumberEl.value, 10);
+      console.log(guessedNumber);
       if (isNaN(guessedNumber) || guessedNumber > highEnd || guessedNumber < lowEnd){
         guessedNumberEl.className = "guessFieldInvalid";
         errorBox.style.visibility = "visible";
