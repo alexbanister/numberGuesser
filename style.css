@@ -50,7 +50,8 @@ input {
   padding: 4px;
   font-size: 25px;
   font-weight: 300;
-  margin: 10px;
+  margin: auto;
+  margin-bottom: 10px;
 }
 
 h3 {
@@ -77,9 +78,9 @@ h3 {
 
 #errorBox {
   position: absolute;
-  top: 60px;
-  left: 25px;
-  right: 25px;
+  top: 50px;
+  left: 0px;
+  right: 0px;
   background-color: #FADBD8;
   border: 1px solid #922B21;
   visibility: hidden;
