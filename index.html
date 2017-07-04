@@ -18,7 +18,7 @@
               <h4>Number Range</h4>
               <label>Minimim: <input type="number" id="lowEndInput" value="1"></label>
               <label>Maxium: <input type="number" id="highEndInput" value="100"></label>
-              <h4>Guesses per level</h4>
+              <h4>Guesses per level, per Player</h4>
               <input type="number" id="guessesPerLevelInput" value="5">
               <h4>Number of Players</h4>
               <img src="images/1player.png" alt="One Player" title="One Player" id="onePlayerIcon" class="playerIconsActive" />
@@ -27,6 +27,10 @@
               <button type="submit" id="saveButton" title="This will reset the current game">Save</button>
               <button type="button" id="cancelButton">Cancel</button>
             </form>
+            <div id="settingsErrorBox">
+              Not a valid number
+            </div>
+          </fieldset>
         </section>
         <img src="images/settingsIcon.svg" alt="Settings icon" id="settingsButton" class="settingsIcon" title="Settings" />
         <h4>Past Guesses:</h4>
@@ -38,6 +42,7 @@
           <legend>Guess a Number</legend>
           <h3 id="currentLevelText">Level 1</h3>
           <p id="currentRangeText">Guess the number between <strong>1</strong> and <strong>100</strong></p>
+          <h5>Player <span id="currentPlayerText">One</span></h5>
           <form class="" action="" method="post">
             <input type="text" id="guessField" class="guessFieldValid" placeholder="Enter your guess">
             <br />

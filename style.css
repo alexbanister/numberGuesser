@@ -53,6 +53,20 @@ legend {
   display: none;
 }
 
+h5 {
+  font-size: 50px;
+  margin: auto;
+  margin-bottom: 25px;
+  padding: 0px;
+  font-weight: 300;
+  color: #404041;
+}
+
+h5 span {
+  color: #ed458b;
+  font-weight: 700;
+}
+
 input {
   width: 100px;
   height: 45px;
@@ -85,14 +99,20 @@ h3 {
   border: 1px solid ##AEB6BF;
 }
 
-#errorBox {
+#errorBox, #settingsErrorBox {
   position: absolute;
   top: 50px;
   left: 0px;
   right: 0px;
   background-color: #FADBD8;
   border: 1px solid #922B21;
-  visibility: hidden;
+  display: none;
+  border-radius: 25px;
+}
+
+#settingsErrorBox {
+  color: #404041;
+  top: -10px;
 }
 
 button {
@@ -131,6 +151,7 @@ button:not([disabled]):hover {
 
 .wideButton {
   width: 450px;
+  height: 40px;
   margin-bottom: 25px;
 }
 
@@ -151,8 +172,7 @@ button:not([disabled]):hover {
 h4 {
   font-size: 15px;
   padding: 0px;
-  margin: 0px;
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .playerIcons {
@@ -225,5 +245,5 @@ h4 {
 
 .historicGuessCorrect {
   color: #404041;
-  background-color: #ABEBC6;
+  background-color: #2ECC71;
 }

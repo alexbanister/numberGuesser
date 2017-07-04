@@ -14,11 +14,13 @@ var lastGuessText = document.getElementById("lastGuessText");
 var lastGuess = document.getElementById("lastGuess");
 var errorBox = document.getElementById("errorBox");
 var settingsBox = document.getElementById("settingsBox");
+var settingsErrorBox = document.getElementById("settingsErrorBox");
 var lowEndInput = document.getElementById("lowEndInput");
 var highEndInput = document.getElementById("highEndInput");
 var guessesPerLevelInput = document.getElementById("guessesPerLevelInput");
 var onePlayerIcon = document.getElementById("onePlayerIcon");
 var twoPlayerIcon = document.getElementById("twoPlayerIcon");
+var currentPlayerText = document.getElementById("currentPlayerText");
 
 var historicGuessesBox = document.getElementById("historicGuessesBox");
 
@@ -31,6 +33,7 @@ var guessesPerLevel=5;
 var levelRangeIncrease=10;
 var numOfPlayers = 1;
 var numOfPlayersTemp = 1;
+var currentPlayer = 1;
 var settingsBoxOpen = false;
 
 // TURN DEBUGGING ON TO SEE VALUES IN CONSOLE
@@ -79,7 +82,6 @@ if (debugMode===true) {
       resultsText.innerHTML = "Too Low!";
       historicGuess.innerHTML = "<strong>" + guessedNumber + "</strong><br />Low";
       mainContent.style.backgroundColor = null;
-
     } else if (guessedNumber>secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too High!";
@@ -93,27 +95,34 @@ if (debugMode===true) {
       mainContent.style.backgroundColor = "#F1948A";
       lastGuessText.innerHTML = "You lost! The correct number was";
       lastGuess.innerHTML = secretNum;
-      resultsText.innerHTML = "Play Again?";
+      resultsText.innerHTML = "Press reset to play Again!";
     }
     historicGuessesBox.insertAdjacentHTML("afterbegin", historicGuess.outerHTML);
  }
 
+function twoPlayerCheckGuess() {
+  if (currentPlayer===1) {
+    currentPlayer=2;
+    var currentPlayerTitle = "Two";
+    var currentPlayerColor = "#3498DB";
+  } else {
+    currentPlayer=1;
+    var currentPlayerTitle = "One";
+    var currentPlayerColor = "#F39C12";
+  }
+  currentPlayerText.innerHTML = currentPlayerTitle
+}
+
  function validateGuess() {
-   var regEx=new RegExp("^[0-9]+$");
-   var testRegEx = regEx.test(guessedNumberEl.value);
    if (guessedNumberEl.value === "") {
-     guessedNumberEl.className = "guessField";
-     errorBox.style.visibility = "hidden";
+     controlGuessErrorState(false);
      guessButton.disabled = true;
      clearButton.disabled = true;
    } else {
       var guessedNumber = parseInt(guessedNumberEl.value);
-      if (isNaN(guessedNumber) || guessedNumber > highEnd || guessedNumber < lowEnd || testRegEx === false){
-        guessedNumberEl.className = "guessFieldInvalid";
-        errorBox.style.visibility = "visible";
-        guessButton.disabled = true;
-        clearButton.disabled = false;
-        if (isNaN(guessedNumber) || testRegEx === false) {
+      if (guessedNumber > highEnd || guessedNumber < lowEnd || isWholeNumber(guessedNumberEl.value) === false){
+        controlGuessErrorState(true);
+        if (isWholeNumber(guessedNumberEl.value) === false) {
           errorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number between " + lowEnd + " and " + highEnd + ".";
         } else if (guessedNumber > highEnd) {
           errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be below " + highEnd + ".";
@@ -121,13 +130,85 @@ if (debugMode===true) {
           errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be above " + lowEnd + ".";
         }
       } else {
-        guessedNumberEl.className = "guessField";
-        errorBox.style.visibility = "hidden";
-        guessButton.disabled = false;
-        clearButton.disabled = false;
+        controlGuessErrorState(false);
       }
    }
  }
+
+function controlGuessErrorState(errorState) {
+  if (errorState) {
+    guessedNumberEl.className = "guessFieldInvalid";
+    errorBox.style.display = "block";
+    guessButton.disabled = true;
+    clearButton.disabled = false;
+  } else {
+    guessedNumberEl.className = "guessField";
+    errorBox.style.display = "none";
+    guessButton.disabled = false;
+    clearButton.disabled = false;
+  }
+}
+
+function validateMinMax() {
+  var rangeSize = Math.abs(highEndInput.value - lowEndInput.value);
+  if (rangeSize < 10) {
+    var invalidRange = true;
+  }
+  if (!isWholeNumber(lowEndInput.value) || !isWholeNumber(highEndInput.value) || invalidRange) {
+    settingsErrorBox.style.display = "block";
+    settingsErrorBox.style.top = "105px";
+    saveButton.disabled = true;
+    if (invalidRange) {
+      settingsErrorBox.innerHTML = "<strong>Not a valid range</strong><br />Range must be at least 10.";
+      console.log("I'm here");
+      highEndInput.className = "guessFieldInvalid";
+      lowEndInput.className = "guessFieldInvalid";
+    } else {
+      highEndInput.className = "guessField";
+      lowEndInput.className = "guessField";
+    }
+    if (!isWholeNumber(lowEndInput.value)) {
+      settingsErrorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number";
+      lowEndInput.className = "guessFieldInvalid";
+    } else {
+      if (!invalidRange) {
+          lowEndInput.className = "guessField";
+      }
+    }
+    if (!isWholeNumber(highEndInput.value)) {
+      settingsErrorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number";
+      highEndInput.className = "guessFieldInvalid";
+    } else {
+      if (!invalidRange) {
+        highEndInput.className = "guessField";
+      }
+    }
+  } else {
+    settingsErrorBox.style.display = "none";
+    saveButton.disabled = false;
+    highEndInput.className = "guessField";
+    lowEndInput.className = "guessField";
+  }
+}
+
+function validateGuessesPerLevel() {
+  if (!isWholeNumber(guessesPerLevelInput.value)) {
+    settingsErrorBox.style.display = "block";
+    settingsErrorBox.style.top = "210px";
+    settingsErrorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number";
+    guessesPerLevelInput.className = "guessFieldInvalid";
+    saveButton.disabled = true;
+  } else {
+    settingsErrorBox.style.display = "none";
+    saveButton.disabled = false;
+    guessesPerLevelInput.className = "guessField";
+  }
+}
+
+function isWholeNumber(num) {
+  var regEx=new RegExp("^[+,-]?[0-9]+$");
+  return testRegEx = regEx.test(num);
+}
 
 function restartGame() {
     guessedNumberEl.value = null;
@@ -185,6 +266,18 @@ guessedNumberEl.addEventListener("input", function(){
   validateGuess();
 });
 
+lowEndInput.addEventListener("input", function(){
+  validateMinMax();
+});
+
+highEndInput.addEventListener("input", function(){
+  validateMinMax();
+});
+
+guessesPerLevelInput.addEventListener("input", function(){
+  validateGuessesPerLevel();
+});
+
 settingsButton.addEventListener("click", function(e){
   e.preventDefault();
   if (settingsBoxOpen === false) {
@@ -212,10 +305,15 @@ twoPlayerIcon.addEventListener("click", function(){
 
 saveButton.addEventListener("click", function(e) {
   e.preventDefault();
-  lowEnd = parseInt(lowEndInput.value);
-  highEnd = parseInt(highEndInput.value);
-  guessesPerLevel = parseInt(guessesPerLevelInput.value);
+  if (parseInt(lowEndInput.value) > parseInt(highEndInput.value)) {
+    highEnd = parseInt(lowEndInput.value);
+    lowEnd = parseInt(highEndInput.value);
+  } else {
+    lowEnd = parseInt(lowEndInput.value);
+    highEnd = parseInt(highEndInput.value);
+  }
   numOfPlayers = numOfPlayersTemp;
+  guessesPerLevel = parseInt(guessesPerLevelInput.value)*numOfPlayers;
   settingsBoxOpen = false;
   settingsBox.style.display = "none";
   settingsButton.className = "settingsIcon";
