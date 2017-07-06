@@ -166,10 +166,10 @@ function twoPlayerCheckGuess() {
      guessButton.disabled = true;
      clearButton.disabled = true;
    } else {
-      var guessedNumber = parseInt(guessedNumberEl.value);
-      if (guessedNumber > highEnd || guessedNumber < lowEnd || isWholeNumber(guessedNumberEl.value) === false){
+      var guessedNumber = Number(guessedNumberEl.value);
+      if (guessedNumber > highEnd || guessedNumber < lowEnd || isWholeNumber(guessedNumber) === false){
         controlGuessErrorState(true);
-        if (isWholeNumber(guessedNumberEl.value) === false) {
+        if (isWholeNumber(guessedNumber) === false) {
           errorBox.innerHTML = "<strong>Not a valid number</strong><br />Enter a whole number between " + lowEnd + " and " + highEnd + ".";
         } else if (guessedNumber > highEnd) {
           errorBox.innerHTML = "<strong>Guess outside range</strong><br />Number must be below " + highEnd + ".";
