@@ -1,5 +1,5 @@
 body {
-  font-family: Open Sans;
+  font-family: Open Sans, sans-serif;
   font-weight: 300;
   font-size: 20px;
   margin: 0px;
@@ -53,13 +53,26 @@ legend {
   display: none;
 }
 
+.guessFieldsetPlayerOne {
+  border-radius: 25px;
+  border: 3px solid #404041;
+  margin: 10px 0px;
+}
+
+.guessFieldsetPlayerTwo {
+  border-radius: 25px;
+  border: 3px solid #ed458b;
+  margin: 10px 0px;
+}
+
 h5 {
-  font-size: 50px;
+  font-size: 40px;
   margin: auto;
   margin-bottom: 25px;
   padding: 0px;
   font-weight: 300;
   color: #404041;
+  display: none;
 }
 
 h5 span {
@@ -78,7 +91,7 @@ input {
 }
 
 h3 {
-  font-size: 25px;
+  font-size: 35px;
   margin: 0px;
   padding: 0px;
   color: #ed458b;
@@ -137,6 +150,11 @@ button:not([disabled]):hover {
 }
 
 /*Results Styles*/
+#resultsArea {
+  border-radius: 25px;
+  padding: 10px;
+}
+
 #lastGuessText, #resultsText {
   visibility: hidden;
 }
@@ -195,6 +213,14 @@ h4 {
   border-radius: 20%;
 }
 
+#playerNamesBox {
+  display: none;
+}
+
+#playerOneNameInput, #playerTwoNameInput {
+  width: 400px;
+}
+
 /*Aside Styles*/
 #rightBar {
   position: absolute;
@@ -209,7 +235,7 @@ h4 {
   padding: 10px;
   margin-top: 15px;
   border-radius: 25%;
-  border: 1px solid #929497;
+  border: 1px solid #eeeeee;
 }
 
 .settingsIcon:hover {
@@ -245,5 +271,5 @@ h4 {
 
 .historicGuessCorrect {
   color: #404041;
-  background-color: #2ECC71;
+  background-color: #73C6B6;
 }

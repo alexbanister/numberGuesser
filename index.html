@@ -24,6 +24,10 @@
               <img src="images/1player.png" alt="One Player" title="One Player" id="onePlayerIcon" class="playerIconsActive" />
               <img src="images/2player.png" alt="Two Player" title="Two Player" id="twoPlayerIcon" class="playerIcons" />
               <br />
+              <div id="playerNamesBox">
+                <label>Player One Name: <input type="text" id="playerOneNameInput" placeholder="Player One"></label>
+                <label>Player Two Name: <input type="text" id="playerTwoNameInput" placeholder="Player Two"></label>
+              </div>
               <button type="submit" id="saveButton" title="This will reset the current game">Save</button>
               <button type="button" id="cancelButton">Cancel</button>
             </form>
@@ -38,11 +42,11 @@
         </div>
       </section>
       <article id="centerCol">
-        <fieldset>
+        <fieldset id="guessFieldset">
           <legend>Guess a Number</legend>
           <h3 id="currentLevelText">Level 1</h3>
           <p id="currentRangeText">Guess the number between <strong>1</strong> and <strong>100</strong></p>
-          <h5>Player <span id="currentPlayerText">One</span></h5>
+          <h5 id="currentPlayerTurn">Player <span id="currentPlayerText">One</span></h5>
           <form class="" action="" method="post">
             <input type="text" id="guessField" class="guessFieldValid" placeholder="Enter your guess">
             <br />
@@ -53,7 +57,7 @@
             </div>
           </form>
         </fieldset>
-        <article class="resultsArea">
+        <article id="resultsArea">
           <p id="lastGuessText">Your last guess was</p>
           <h2 id="lastGuess">?</h2>
           <p id="resultsText">Placeholder</p>
