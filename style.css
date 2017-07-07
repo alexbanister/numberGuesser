@@ -262,7 +262,7 @@ h4 {
 }
 
 .youLose {
-  background-color: #CD6155;
+  background-color: #EA2E49;
   color: #404041;
   animation-name: fadeIn;
   animation-duration: .5s;
@@ -275,7 +275,7 @@ h4 {
 }
 
 .youWin {
-  background-color: #73C6B6;
+  background-color: #96CA2D;
   animation-name: fadeIn;
   animation-duration: .5s;
   animation-timing-function: ease-out;
@@ -312,7 +312,7 @@ h4 {
 
 .historicGuessCorrect {
   color: #404041;
-  background-color: #73C6B6;
+  background-color: #96CA2D;
 }
 
 @keyframes rubberBand {
