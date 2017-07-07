@@ -55,6 +55,7 @@ if (debugMode===true) {
   console.log("Guesses Per Level: " + guessesPerLevel);
 }
   function makeHistoricGuessCircle(guessedNumber, results) {
+
     var historicGuess = document.createElement('div');
     historicGuess.className = "historicGuess";
     if ((numOfGuesses===1 && numOfPlayers===1) || (numOfGuesses===.5 && numOfPlayers===2)) {
@@ -87,18 +88,18 @@ if (debugMode===true) {
 
     if (guessedNumber===secretNum) {
       lastGuess.innerHTML = "<h3>" + guessedNumber + "</h3>";
-      resultsArea.style.backgroundColor = "#73C6B6";
+      resultsArea.classList.add("youWin");
       results = "boom";
       levelUp();
     } else if (guessedNumber<secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too Low!";
-      resultsArea.style.backgroundColor = null;
+      resultsArea.classList.remove("youLose", "youWin");
       results = "low"
     } else if (guessedNumber>secretNum) {
       lastGuess.innerHTML = guessedNumber;
       resultsText.innerHTML = "Too High!";
-      resultsArea.style.backgroundColor = null;
+      resultsArea.classList.remove("youLose", "youWin");
       results = "high"
     }
     return results;
@@ -108,7 +109,7 @@ function youLose() {
   guessButton.disabled = true;
   clearButton.disabled = true;
   guessField.disabled = true;
-  resultsArea.style.backgroundColor = "#CD6155";
+  resultsArea.classList.add("youLose");
   lastGuessText.innerHTML = "You lost! The correct number was";
   lastGuess.innerHTML = secretNum;
   lastGuess.style.color = "#404041";
@@ -269,7 +270,8 @@ function restartGame() {
     lastGuessText.innerHTML = "Your last guess was";
     resetButton.disabled = true;
     lastGuess.innerHTML = "?";
-    resultsArea.style.backgroundColor = null;
+    resultsArea.classList.remove("youLose", "youWin");
+    lastGuess.style.color = "";
     historicGuessesBox.innerHTML = "";
 
     if (debugMode===true) {

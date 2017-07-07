@@ -165,6 +165,14 @@ button:not([disabled]):hover {
   padding: 0px;
   color: #ed458b;
   font-weight: 300;
+  animation-name: bounce;
+  animation-duration: .5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  animation-play-state: running;
 }
 
 .wideButton {
@@ -253,6 +261,31 @@ h4 {
   background-color: #404041;
 }
 
+.youLose {
+  background-color: #CD6155;
+  color: #404041;
+  animation-name: fadeIn;
+  animation-duration: .5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  animation-play-state: running;
+}
+
+.youWin {
+  background-color: #73C6B6;
+  animation-name: fadeIn;
+  animation-duration: .5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  animation-play-state: running;
+}
+
 .historicGuess, .historicGuessCorrect {
   color: #ffffff;
   font-size: 12px;
@@ -263,6 +296,14 @@ h4 {
   height: 50px;
   border-radius: 50%;
   background-color: #eb008b;
+  animation-name: rubberBand;
+  animation-duration: .5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  animation-play-state: running;
 }
 
 .historicGuess>strong, .historicGuessCorrect>strong {
@@ -272,4 +313,64 @@ h4 {
 .historicGuessCorrect {
   color: #404041;
   background-color: #73C6B6;
+}
+
+@keyframes rubberBand {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, .95, 1);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: .0;
+  }
+  to {
+    opacity: 1;
+  }
 }
